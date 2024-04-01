@@ -1,0 +1,359 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background-color: #f6f5ec;
+  margin: 0;
+  display: flex;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  /* edit table placement  */
+  padding-left: 400px;
+  padding-top: 35px;
+  background-size: cover;
+}
+
+.header img {
+  width: 50px;
+  margin-right: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header p {
+  padding-top: 30px;
+  font-size: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.side-nav {
+  width: 100px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 30px 15px;
+  background: rgba(178, 144, 121, 0.17);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  transition: width 0.3s;
+}
+.label-color {
+  color: #92725d;
+}
+
+ul {
+  list-style: none;
+  padding: 0 15px;
+}
+
+ul li {
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.round-dropdown {
+  border-radius: 10px;
+  color: #f6f5ec;
+  font-size: 14px; /* Set the font size to your desired size */
+  padding: 3px; /* Add padding for better appearance */
+  border: none;
+  outline: none;
+  background: #b29079;
+}
+
+.Insert {
+  padding-top: 20px;
+  align-items: center;
+}
+
+.Insert label {
+  width: 200px;
+  text-align: right;
+  color: #92725d;
+}
+
+img,
+span {
+  vertical-align: bottom;
+}
+span p {
+  padding-bottom: 5px;
+}
+
+.Insert input {
+  color: #92725d;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: rgba(239, 233, 230, 0.8);
+  border: 2px solid rgba(178, 144, 121, 0.87);
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.input-group_first_row {
+  margin-bottom: 3px;
+}
+.input-group_second_row {
+  padding-left: 475px;
+}
+.input-group_first_row_update {
+  margin-bottom: 50px;
+  padding-top: 10px;
+}
+
+.input-group_third_row_update {
+  margin-left: 400px;
+}
+.Insert input[type="text"] {
+  padding-left: 5px;
+}
+.Insert button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.Insert img {
+  width: 35px;
+  padding-left: 5px;
+  padding-bottom: 7px;
+}
+.Delete {
+  align-items: center;
+  margin-top: 0;
+}
+
+.Delete label {
+  width: 200px;
+  text-align: right;
+  color: #92725d;
+}
+.Delete input {
+  color: #92725d;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: rgba(239, 233, 230, 0.8);
+  border: 2px solid rgba(178, 144, 121, 0.87);
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.Delete input[type="text"] {
+  padding-left: 5px; /* Adjust the value as needed */
+}
+.Delete button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.Delete img {
+  width: 35px;
+  padding-left: 5px;
+  padding-bottom: 9px;
+}
+
+.Update {
+  align-items: center;
+  margin-top: 0;
+}
+
+.Update label {
+  width: 200px;
+  text-align: right;
+  color: #92725d;
+}
+.Update input {
+  color: #92725d;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: rgba(239, 233, 230, 0.8);
+  border: 2px solid rgba(178, 144, 121, 0.87);
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.Update input[type="text"] {
+  padding-left: 5px;
+}
+.Update button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.Update img {
+  width: 40px;
+  padding-left: 5px;
+  padding-bottom: 9px;
+}
+.clear {
+  align-items: center;
+  margin-top: 0;
+}
+
+.clear button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.clear img {
+  width: 40px;
+  /* padding-left: 3px; */
+  padding-bottom: 3px;
+}
+
+ul li img {
+  width: 30px;
+  margin-right: 0;
+  transition: margin-right 0.3s;
+}
+
+p {
+  color: rgb(178, 144, 121);
+}
+
+ul li p {
+  white-space: nowrap;
+  max-width: 0;
+  overflow: hidden;
+  transition: max-width 0.3s;
+}
+
+.side-nav:hover {
+  width: 230px;
+}
+
+.side-nav:hover ul li p {
+  max-width: 130px;
+}
+
+.side-nav:hover ul li img {
+  margin-right: 10px;
+}
+
+.side-nav:hover ul li {
+  justify-content: flex-start;
+}
+
+ul a {
+  text-decoration: none;
+}
+
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 1em;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  min-width: 550px; /* Change this value to your desired length */
+}
+
+.content-table thead tr {
+  background-color: #b29079;
+  color: #f6f5ec;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f6f5ec;
+}
+.content-table tbody tr:nth-of-type(odd) {
+  /* background-color: #e4ded0; */
+  background-color: #ebe5dc;
+}
+
+.content-table tbody tr:nth-of-type(odd) {
+  color: #564134;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #b29079;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  /* font-weight: bold; */
+  color: #92725d;
+}
+.Search_container {
+  color: #92725d;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: rgba(239, 233, 230, 0.8);
+  border: 2px solid rgba(178, 144, 121, 0.87);
+  padding-top: 3px;
+  padding-bottom: 3px;
+  width: 85px;
+}
+.Search_container {
+  padding-left: 5px; /* Adjust the value as needed */
+}
+.Search_label {
+  color: #92725d;
+  padding-left: 210px;
+}
+.header .Search_label,
+.header .patient_p,
+.header .patientImage {
+  display: inline-block;
+  vertical-align: baseline;
+}
+.dropdown_search {
+  border-radius: 10px;
+  color: #f6f5ec;
+  font-size: 14px; /* Set the font size to your desired size */
+  padding: 3px; /* Add padding for better appearance */
+  border: none;
+  outline: none;
+  background: #b29079;
+  width: 18px;
+}
+.search_button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.search_button img {
+  width: 27px;
+  padding-left: 5px;
+}
+th a {
+  text-decoration: none;
+  color: #f6f5ec;
+}

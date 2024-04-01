@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Equipment</title>
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/dentist-chair.png') }}"
+      type="image/x-icon"
+    />
+
+    <!-- Link Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='equipment.css') }}"
+    />
+  </head>
+  <body>
+    <div class="header">
+      <img
+        class="header-img"
+        src="{{ url_for('static', filename='images/dentist-chair.png') }}"
+      />
+      <p>Equipment</p>
+      <div class="table">
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Equipment ID</th>
+              <th>Equipment Name</th>
+              <th>Maintenance Date</th>
+              <th>Supplier ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in equipment_data %}
+            <tr>
+              <td>{{ row['equipmentID'] }}</td>
+              <td>{{ row['equipmentName'] }}</td>
+              <td>{{ row['maintenanceDate'] }}</td>
+              <td>{{ row['supplierID'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div id="functions">
+        <div class="operation-select">
+          <label for="operationType" class="label-color"
+            >Select Operation:</label
+          >
+          <select
+            id="operationType"
+            class="round-dropdown"
+            onchange="toggleFields()"
+          >
+            <option value="Select">-- Select --</option>
+            <option value="insert">Add Equipment</option>
+            <option value="delete">Delete Equipment</option>
+            <option value="update">Update Equipment</option>
+          </select>
+        </div>
+
+        <!-- Insert Form -->
+        <div id="insertEquipment" class="Insert" style="display: none">
+          <form action="{{ url_for('add_equipment') }}" method="post">
+            <div class="input-group_first_row">
+              <label for="equipmentName">Equipment Name:</label>
+              <input
+                type="text"
+                id="equipmentName"
+                name="equipmentName"
+                required
+              />
+
+              <label for="maintenanceDate">Maintenance Date:</label>
+              <input
+                type="date"
+                id="maintenanceDate"
+                name="maintenanceDate"
+                required
+              />
+
+              <label for="supplierID">Supplier ID:</label>
+              <input type="text" id="supplierID" name="supplierID" required />
+            </div>
+            <div class="input-group_second_row">
+              <button type="submit">
+                <img
+                  src="{{ url_for('static', filename='images/add-user.png') }}"
+                  alt="Insert Equipment"
+                />
+                <span><p>Add</p></span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Delete Form -->
+        <div id="deleteFields" class="Delete" style="display: none">
+          <form action="{{ url_for('delete_equipment') }}" method="post">
+            <label for="equipmentID">Equipment ID to Delete:</label>
+            <input type="text" id="equipmentID" name="equipmentID" required />
+
+            <button type="submit">
+              <img
+                src="{{ url_for('static', filename='images/remove-user.png') }}"
+                alt="Delete Equipment"
+              />
+              <span><p>Delete</p></span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Update Form -->
+        <div id="updateFields" class="Update" style="display: none">
+          <form action="{{ url_for('update_equipment') }}" method="post">
+            <div class="input-group_first_row_update">
+              <label for="equipmentID">Equipment ID to Update:</label>
+              <input type="text" id="equipmentID" name="equipmentID" required />
+
+              <label for="newEquipmentName" style="padding-left: 5px"
+                >New Equipment Name:</label
+              >
+              <input
+                type="text"
+                id="newEquipmentName"
+                name="newEquipmentName"
+                required
+              />
+              <div>
+                <label for="newMaintenanceDate" style="padding-left: 5px"
+                  >New Maintenance Date:</label
+                >
+                <input
+                  type="date"
+                  id="newMaintenanceDate"
+                  name="newMaintenanceDate"
+                  required
+                />
+
+                <label for="newSupplierID" style="padding-left: 5px"
+                  >New Supplier ID:</label
+                >
+                <input
+                  type="text"
+                  id="newSupplierID"
+                  name="newSupplierID"
+                  required
+                />
+              </div>
+            </div>
+            <div class="input-group_second_row_update">
+              <button type="submit">
+                <img
+                  src="{{ url_for('static', filename='images/updating.png') }}"
+                  alt="Update Equipment"
+                />
+                <span><p>Update</p></span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      function toggleFields() {
+        var operationType = document.getElementById("operationType").value;
+
+        // Show/hide fields based on selection
+        if (operationType === "Select") {
+          document.getElementById("insertEquipment").style.display = "none";
+          document.getElementById("deleteFields").style.display = "none";
+          document.getElementById("updateFields").style.display = "none";
+        } else if (operationType === "insert") {
+          document.getElementById("insertEquipment").style.display = "block";
+          document.getElementById("deleteFields").style.display = "none";
+          document.getElementById("updateFields").style.display = "none";
+        } else if (operationType === "delete") {
+          document.getElementById("insertEquipment").style.display = "none";
+          document.getElementById("deleteFields").style.display = "block";
+          document.getElementById("updateFields").style.display = "none";
+        } else if (operationType === "update") {
+          document.getElementById("insertEquipment").style.display = "none";
+          document.getElementById("deleteFields").style.display = "none";
+          document.getElementById("updateFields").style.display = "block";
+        }
+      }
+    </script>
+    <div class="side-nav">
+      <ul>
+        <a href="{{ url_for('homepage') }}">
+          <li>
+            <img src="{{ url_for('static', filename='images/home_.png') }}" />
+            <p>Home</p>
+          </li>
+        </a>
+        <a href="{{ url_for('patient') }}">
+          <li>
+            <img src="../static/images/heartbeat.png" />
+            <p>Patients</p>
+          </li>
+        </a>
+        <a href="{{ url_for('staff') }}">
+          <li>
+            <img src="../static/images/medical-team.png" />
+            <p>Staff</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('patient') }}">
+          <li>
+            <img src="../static/images/heartbeat.png" />
+            <p>Patients</p>
+          </li>
+        </a>
+        <a href="{{ url_for('Appointment') }}">
+          <li>
+            <img src="../static/images/appointment.png" />
+            <p>Appointment</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+
+        <a href="{{ url_for('treatmentPlan') }}">
+          <li>
+            <img src="../static/images/dentist-tools.png" />
+            <p>Treatment plan</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+
+        <a href="{{ url_for('laboratory') }}">
+          <li>
+            <img src="../static/images/chemical-analysis.png" />
+            <p>Laboratory</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+
+        <a href="{{ url_for('patientPayment') }}">
+          <li>
+            <img src="../static/images/payment-method.png" />
+            <p>Patient Payment</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('clinicExpenses') }}">
+          <li>
+            <img src="../static/images/accounting.png" />
+            <p>Clinic Expenses</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('supplier') }}">
+          <li>
+            <img src="../static/images/delivery-courier.png" />
+            <p>Supplier</p>
+          </li>
+        </a>
+        <a href="{{ url_for('Queries') }}">
+          <li>
+            <img src="../static/images/report.png" />
+            <p>Reports</p>
+          </li>
+        </a>
+      </ul>
+      <!--**************************************************************-->
+      <ul>
+        <a href="{{ url_for('index') }}">
+          <li>
+            <img src="../static/images/exit.png" />
+            <p>Logout</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+      </ul>
+    </div>
+  </body>
+</html>

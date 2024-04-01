@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("2.jpg"); /* Replace with the actual image path */
+    background-size: 597px; /* Adjust to actual image width minus a small margin */
+    background-position: 0 0;
+    margin: 0;
+    padding: 0;
+    border: 0.1px transparent; /* Transparent border for masking */
+    box-sizing: border-box;
+}
+
+h1 {
+        color: rgb(134, 99, 99);
+
+    font-size: 45px; /* Adjust font size as needed */
+    margin-bottom: 10px; /* Adjust as needed for space between heading and paragraph */
+    padding-right: 690px;
+}
+
+p {
+    color: rgb(168, 158, 152);
+    font-size: 45px; /* Adjust font size as needed */
+}

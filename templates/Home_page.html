@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aisha Nassar dental clinic</title>
+    <link rel="icon" href="../static/images/clinic_logo.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='HomePage_style.css') }}">
+        <link rel="stylesheet" href="../static/HomePage_style.css">
+
+  </head>
+  <body>
+    <div class="header">
+      <div class="table-clock-container">
+
+  <div class="table-container">
+<img src="../static/images/appointment.png" class="patientImage"/>
+          <p class="patient_p">Up Coming Appointments</p>
+
+
+          <table class="content-table">
+          <thead>
+            <tr>
+              <th>Patient ID</th>
+              <th>Staff ID</th>
+              <th>Time</th>
+              <th>Date</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in upcoming_data %}
+            <tr>
+              <td>{{ row['patientID'] }}</td>
+              <td>{{ row['staffID'] }}</td>
+              <td>{{ row['appointmentTime'] }}</td>
+              <td>{{ row['appointmentDate'] }}</td>
+              <td>{{ row['appointmentType'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+          </div>
+
+          <div class="clock-container">
+
+      <div class ="container">
+        <div class="clock">
+          <span id="hrs">00</span>
+          <span>:</span>
+          <span id="min">00</span>
+          <span>:</span>
+          <span id="sec">00</span>
+        </div>
+      </div>
+                  </div>
+
+    </div>
+      </div>
+    <script>
+      let hrs =document.getElementById("hrs")
+      let min =document.getElementById("min")
+      let sec =document.getElementById("sec")
+      setInterval(()=>{
+        let currentTime= new Date();
+      hrs.innerHTML=currentTime.getHours();
+      min.innerHTML=currentTime.getMinutes();
+      sec.innerHTML=currentTime.getSeconds();
+      },1000)
+    </script>
+<!--**************************************************************-->
+    <div class="side-nav">
+      <ul>
+          <a href="{{ url_for('staff') }}">
+            <li>
+          <img src="../static/images/medical-team.png" />
+          <p>Staff</p>
+        </li>
+        </a>
+<!--**************************************************************-->
+        <a href="{{ url_for('patient') }}">
+        <li>
+          <img src="../static/images/heartbeat.png" />
+          <p>Patients</p>
+        </li>
+        </a>
+        <a href="{{ url_for('Appointment') }}">
+        <li>
+          <img src="../static/images/appointment.png" />
+          <p>Appointment</p>
+        </li>
+        </a>
+        <!--**************************************************************-->
+
+          <a href="{{ url_for('treatmentPlan') }}">
+        <li>
+          <img src="../static/images/dentist-tools.png" />
+          <p>Treatment plan</p>
+        </li>
+        </a>
+        <!--**************************************************************-->
+
+          <a href="{{ url_for('laboratory') }}">
+
+          <li>
+            <img src="../static/images/chemical-analysis.png" />
+            <p>Laboratory</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+
+        <a href="{{ url_for('patientPayment') }}">
+        <li>
+          <img src="../static/images/payment-method.png" />
+          <p>Patient Payment</p>
+        </li>
+          </a>
+          <!--**************************************************************-->
+        <a href="{{ url_for('clinicExpenses') }}">
+        <li>
+          <img src="../static/images/accounting.png" />
+          <p>Clinic Expenses</p>
+        </li>
+          </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('equipment') }}">
+        <li>
+          <img src="../static/images/dentist-chair.png" />
+          <p>Equipment</p>
+        </li>
+          </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('supplier') }}">
+        <li>
+          <img src="../static/images/delivery-courier.png" />
+          <p>Supplier</p>
+        </li>
+          </a>
+          <a href="{{ url_for('Queries') }}">
+          <li>
+            <img src="../static/images/report.png" />
+            <p>Reports</p>
+          </li>
+        </a>
+      </ul>
+        <!--**************************************************************-->
+      <ul>
+       <a href="{{ url_for('index') }}">
+          <li>
+            <img src="../static/images/exit.png" />
+            <p>Logout</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+
+        </ul>
+    </div>
+  </body>
+</html>

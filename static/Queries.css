@@ -1,0 +1,237 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background-color: #f6f5ec;
+  margin: 0;
+  display: flex;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  /* edit table placement  */
+  padding-left: 450px;
+  padding-top: 35px;
+  background-size: cover;
+}
+
+.header img {
+  width: 50px;
+  margin-right: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header p {
+  padding-top: 30px;
+  font-size: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.side-nav {
+  width: 100px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 30px 15px;
+  background: rgba(178, 144, 121, 0.17);
+  backdrop-filter: blur(5px);
+  display: flex;
+  /* display: inline-block; */
+  justify-content: space-between;
+  flex-direction: column;
+  transition: width 0.3s;
+}
+
+ul {
+  list-style: none;
+  padding: 0 15px;
+}
+
+ul li {
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+ul li img {
+  width: 30px;
+  margin-right: 0;
+  transition: margin-right 0.3s;
+}
+
+p {
+  color: rgb(178, 144, 121);
+}
+
+ul li p {
+  white-space: nowrap;
+  max-width: 0;
+  overflow: hidden;
+  transition: max-width 0.3s;
+}
+
+.side-nav:hover {
+  width: 230px;
+}
+
+.side-nav:hover ul li p {
+  max-width: 130px;
+}
+
+.side-nav:hover ul li img {
+  margin-right: 10px;
+}
+
+.side-nav:hover ul li {
+  justify-content: flex-start;
+}
+
+ul a {
+  text-decoration: none;
+}
+
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+  background-color: #b29079;
+  color: #f6f5ec;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+  padding-bottom: 5px;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f6f5ec;
+}
+.content-table tbody tr:nth-of-type(odd) {
+  /* background-color: #e4ded0; */
+  background-color: #ebe5dc;
+}
+
+.content-table tbody tr:nth-of-type(odd) {
+  color: #564134;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #b29079;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  color: #92725d;
+}
+
+.search-container header {
+  position: relative;
+}
+
+.search-container {
+  position: center;
+  padding-top: 10px;
+  top: 10px;
+  right: 20px;
+}
+.search-container input{
+    border: none;
+}
+.search-container input[type="text"] {
+  padding: 6px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+}
+
+.search-container button {
+  padding: 6px 10px;
+  background-color: #b29079;
+  color: white;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.search-container table {
+  margin-top: 50px;
+}
+.search-container label{
+    color: #92725d;
+}
+.header button[type="upcoming"]{
+  padding: 6px 10px;
+  margin-top: 15px;
+  background-color: #b29079;
+  color: white;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.table {
+  position: relative;
+}
+.count-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 500px;
+}
+
+.staff-count,
+.patient-count {
+  margin-bottom: 20px; /* Adjust the margin as needed */
+}
+
+.count-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 20px;
+  margin-top: 50px;
+  margin-right: 50px;
+}
+
+.staff-count,
+.patient-count,
+.appointment-count,
+.patient-payment-count,
+.treatment-plan-count,
+.laboratory-count,
+.supplier-count,
+.equipment-count,
+.clinic-expenses-count {
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+

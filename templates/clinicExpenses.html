@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clinic Expenses</title>
+  <link rel="icon" href="{{ url_for('static', filename='images/accounting.png') }}" type="image/x-icon" />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='clinicExpenses.css') }}" />
+</head>
+<body>
+  <div class="header">
+    <img class="header-img" src="{{ url_for('static', filename='images/accounting.png') }}" />
+    <p>Clinic Expenses</p>
+    <div class="table">
+      <table class="content-table">
+        <thead>
+          <tr>
+            <th>Payment Number</th>
+            <th>Expenses</th>
+            <th>Balance</th>
+            <th>Staff ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in clinic_expenses_data %}
+          <tr>
+            <td>{{ row['clinicPaymentNumber'] }}</td>
+            <td>{{ row['expenses'] }}</td>
+            <td>{{ row['balance'] }}</td>
+            <td>{{ row['expensesStaffID'] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div id="functions">
+      <div class="operation-select">
+        <label for="operationType" class = "label-color">Select Operation:</label>
+        <select id="operationType" class="round-dropdown" onchange="toggleFields()">
+          <option value="Select">-- Select --</option>
+          <option value="insert">Add Clinic Expense</option>
+          <option value="delete">Delete Clinic Expense</option>
+          <option value="update">Update Clinic Expense</option>
+        </select>
+      </div>
+
+      <!-- Insert Form -->
+      <div id="insertExpense" class="Insert" style="display: none">
+        <form action="{{ url_for('add_expense') }}" method="post">
+          <div class="input-group_first_row">
+            <label for="expenses">Expenses:</label>
+            <input type="text" id="expenses" name="expenses" required />
+
+            <label for="balance">Balance:</label>
+            <input type="text" id="balance" name="balance" required />
+
+            <label for="expensesStaffID">Staff ID:</label>
+            <input type="text" id="expensesStaffID" name="expensesStaffID" required />
+          </div>
+          <div class="input-group_second_row">
+            <button type="submit">
+              <img src="{{ url_for('static', filename='images/add-user.png') }}" alt="Add Expense" />
+              <span><p>Add</p></span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Delete Form -->
+      <div id="deleteFields" class="Delete" style="display: none">
+        <form action="{{ url_for('delete_expense') }}" method="post">
+          <label for="clinicPaymentNumber">Payment Number to Delete:</label>
+          <input type="text" id="clinicPaymentNumber" name="clinicPaymentNumber" required />
+
+          <button type="submit">
+            <img src="{{ url_for('static', filename='images/remove-user.png') }}" alt="Delete Expense" />
+            <span><p>Delete</p></span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Update Form -->
+      <div id="updateFields" class="Update" style="display: none">
+        <form action="{{ url_for('update_expense') }}" method="post">
+          <div class="input-group_first_row_update">
+            <label for="clinicPaymentNumber">Payment Number to Update:</label>
+            <input type="text" id="clinicPaymentNumber" name="clinicPaymentNumber" required />
+
+            <label for="newExpenses" style="padding-left: 5px">New Expenses:</label>
+            <input type="text" id="newExpenses" name="newExpenses" required />
+          </div>
+          <div>
+            <label for="newBalance" style="padding-left: 5px">New Balance:</label>
+            <input type="text" id="newBalance" name="newBalance" required />
+
+            <label for="newExpensesStaffID" style="padding-left: 5px">New Staff ID:</label>
+            <input type="text" id="newExpensesStaffID" name="newExpensesStaffID" required />
+          </div>
+          <div class="input-group_second_row_update">
+            <button type="submit">
+              <img src="{{ url_for('static', filename='images/updating.png') }}" alt="Update Expense" />
+              <span><p>Update</p></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    function toggleFields() {
+      var operationType = document.getElementById("operationType").value;
+
+      // Show/hide fields based on selection
+      if (operationType === "Select") {
+        document.getElementById("insertExpense").style.display = "none";
+        document.getElementById("deleteFields").style.display = "none";
+        document.getElementById("updateFields").style.display = "none";
+      } else if (operationType === "insert") {
+        document.getElementById("insertExpense").style.display = "block";
+        document.getElementById("deleteFields").style.display = "none";
+        document.getElementById("updateFields").style.display = "none";
+      } else if (operationType === "delete") {
+        document.getElementById("insertExpense").style.display = "none";
+        document.getElementById("deleteFields").style.display = "block";
+        document.getElementById("updateFields").style.display = "none";
+      } else if (operationType === "update") {
+        document.getElementById("insertExpense").style.display = "none";
+        document.getElementById("deleteFields").style.display = "none";
+        document.getElementById("updateFields").style.display = "block";
+      }
+    }
+  </script>
+  <div class="side-nav">
+    <ul>
+      <a href="{{ url_for('homepage') }}">
+        <li>
+          <img src="{{ url_for('static', filename='images/home_.png') }}" />
+          <p>Home</p>
+        </li>
+      </a>
+      <a href="{{ url_for('patient') }}">
+        <li>
+          <img src="../static/images/heartbeat.png" />
+          <p>Patients</p>
+        </li>
+      </a>
+      <!--**************************************************************-->
+      <a href="{{ url_for('staff') }}">
+        <li>
+          <img src="{{ url_for('static', filename='images/medical-team.png') }}" />
+          <p>Staff</p>
+        </li>
+      </a>
+      <!--**************************************************************-->
+
+      <a href="{{ url_for('Appointment') }}">
+        <li>
+          <img src="{{ url_for('static', filename='images/appointment.png') }}" />
+          <p>Appointment</p>
+        </li>
+      </a>
+      <!--**************************************************************-->
+      <a href="{{ url_for('treatmentPlan') }}">
+        <li>
+          <img src="{{ url_for('static', filename='images/dentist-tools.png') }}" />
+          <p>Treatment plan</p>
+        </li>
+      </a>
+      <!--**************************************************************-->
+      <a href="{{ url_for('laboratory') }}">
+        <li>
+          <img src="{{ url_for('static', filename='images/chemical-analysis.png') }}" />
+          <p>Laboratory</p>
+        </li>
+      </a>
+      <!--**************************************************************-->
+
+      <a href="{{ url_for('patientPayment') }}">
+        <li>
+          <img src="{{ url_for('static', filename='images/payment-method.png') }}" />
+          <p>Patient Payment</p>
+        </li>
+      </a>
+      <!--**************************************************************-->
+      <a href="{{ url_for('equipment') }}">
+        <li>
+          <img src="{{ url_for('static', filename='images/dentist-chair.png') }}" />
+          <p>Equipment</p>
+        </li>
+      </a>
+      <!--**************************************************************-->
+      <a href="{{ url_for('supplier') }}">
+        <li>
+          <img src="{{ url_for('static', filename='images/delivery-courier.png') }}" />
+          <p>Supplier</p>
+        </li>
+      </a>
+      <a href="{{ url_for('Queries') }}">
+        <li>
+          <img src="{{ url_for('static', filename='images/report.png') }}" />
+          <p>Reports</p>
+        </li>
+      </a>
+    </ul>
+    <!--**************************************************************-->
+    <ul>
+      <a href="{{ url_for('index') }}">
+        <li>
+          <img src="{{ url_for('static', filename='images/exit.png') }}" />
+          <p>Logout</p>
+        </li>
+      </a>
+    </ul>
+  </div>
+</body>
+</html>

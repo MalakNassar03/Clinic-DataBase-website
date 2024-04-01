@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Patient</title>
+</head>
+<body>
+    <h1>Insert New Patient</h1>
+
+    <form action="/insert_patient" method="post">
+        <label for="patientID">Patient ID:</label>
+        <input type="text" id="patientID" name="patientID" required>
+
+        <label for="patientName">Patient Name:</label>
+        <input type="text" id="patientName" name="patientName" required>
+
+        <label for="patientPhoneNumber">Phone Number:</label>
+        <input type="text" id="patientPhoneNumber" name="patientPhoneNumber" required>
+
+        <button type="submit">Insert Patient</button>
+    </form>
+</body>
+</html>

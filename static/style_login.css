@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins", sans-serif;
+
+
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("images/tooth_Wallpaper-transformed2.png") ;
+    background-size: 597px; /* Adjust to actual image width minus a small margin */
+    background-position: 0 0;
+    margin: 0;
+    padding: 0;
+    border: 0.1px  transparent; /* Transparent border for masking */
+    box-sizing: border-box;
+
+
+}
+
+.wapper{
+    width: 420px;
+    height: 400px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,.2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    color: #b29079;
+    border-radius: 20px;
+    padding: 30px 40px;
+}
+.wapper h1{
+    font-size: 36px;
+    text-align: center;
+}
+.wapper .input_box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+.input_box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(178, 144, 121, 0.87);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #b29079;
+    padding: 20px 45px 20px 20px;
+}
+
+.input_box input::placeholder{
+ color: #b29079;
+}
+.input_box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+.wapper .remember_me{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+
+}
+.remember_me label input{
+    accent-color: #b29079;
+    margin-right: 3px;
+
+}
+.wapper .btn{
+    width: 100%;
+    height: 45px;
+    background: #b29079;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #efe7da;
+    font-weight: 600;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aisha Nassar dental clinic</title>
+    <link rel="stylesheet" href="../static/style_login.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_login.css') }}">
+    <link rel="icon" href="../static/images/clinic_logo.png" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+<body>
+<div class="wapper">
+    <form action="{{ url_for('Login') }}" method="post">
+        <h1>Login</h1>
+        <div class="input_box">
+            <input type="text" name="staffID" placeholder="Username" required>
+            <i class='bx bx-user'></i>
+        </div>
+        <div class="input_box">
+            <input type="password" name="password" placeholder="Password" required>
+            <i class='bx bx-lock-alt'></i>
+        </div>
+        <div class="remember_me">
+            <label><input type="checkbox">Remember me
+                </label>
+        </div>
+<!--        <a href="{{ url_for('homepage') }}">-->
+        <button type="submit" class="btn" >Login</button>
+
+    </form>
+</div>
+
+</body>
+</html>

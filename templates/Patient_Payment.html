@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Payment</title>
+    <link rel="icon" href="../static/images/payment-method.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Patient_Payment.css') }}">
+        <link rel="stylesheet" href="../static/Patient_Payment.css">
+
+  </head>
+  <body>
+    <div class="header">
+    <img src="../static/images/payment-method.png" class="patientImage"/>
+          <p class="patient_p">Patient Payment</p>
+<!--*********************************************************************-->
+      <label for="search" class="Search_label" >Search:</label>
+    <input type="text" id="search" name="search" placeholder="Search..." class="Search_container">
+          <label for="searchType" class= "label-color "></label>
+                      <select id="searchType" name="searchType" onchange="toggleSearchFields()" class="dropdown_search">
+                          <option value="Select" >Select</option>
+                          <option value="patientPaymentNumber">patientPaymentNumber</option>
+                          <option value="PatientID">PatientID</option>
+                        <option value="collectStaffID">StaffID</option>
+                        <option value="patientPaymentDate">Date</option>
+                         <option value="amount">amount</option>
+                        <option value="patientPaymentType">Type</option>
+                        <option value="totalToPay">totalToPay</option>
+
+                      </select>
+<button onclick="searchPatients()" class="search_button">
+                  <img src="../static/images/find.png" alt="search Patient">
+                 </button>
+      <button onclick="refreshTable()" class="search_button">
+                  <img src="../static/images/refresh.png" alt="search Patient">
+                 </button>
+<!--*********************************************************************-->
+          <div class="table">
+            <table class="content-table ">
+                  <thead>
+                     <tr>
+                      <th><a href="{{ url_for('patientPayment', sort_by='patientPaymentNumber', sort_order=new_sort_order) }}"
+                  >patientPaymentNumber</a></th>
+                      <th><a href="{{ url_for('patientPayment', sort_by='PatientID', sort_order=new_sort_order) }}"
+                        >PatientID</a></th>
+                      <th><a href="{{ url_for('patientPayment', sort_by='collectStaffID', sort_order=new_sort_order) }}"
+                        >StaffID</a></th>
+                      <th><a href="{{ url_for('patientPayment', sort_by='patientPaymentDate', sort_order=new_sort_order) }}"
+                        >PaymentDate</a></th>
+                       <th><a href="{{ url_for('patientPayment', sort_by='amount', sort_order=new_sort_order) }}"
+                        >Amount</a></th>
+                      <th><a href="{{ url_for('patientPayment', sort_by='patientPaymentType', sort_order=new_sort_order) }}"
+                        >PaymentType</a></th>
+                      <th><a href="{{ url_for('patientPayment', sort_by='totalToPay', sort_order=new_sort_order) }}"
+                        >totalToPay</a></th>
+                      <th><a href="{{ url_for('patientPayment', sort_by='amountLeftToPay', sort_order=new_sort_order) }}">
+                          Amount Left to Pay</a></th>
+
+                    </tr>
+
+                  </thead>
+                  <tbody>
+                    {% for row in patientPayment_data %}
+                    <tr>
+                        <td>{{ row['patientPaymentNumber'] }}</td>
+                        <td>{{ row['PatientID'] }}</td>
+                        <td>{{ row['collectStaffID'] }}</td>
+                        <td>{{ row['patientPaymentDate'] }}</td>
+                        <td>{{ row['amount'] }}</td>
+                        <td>{{ row['patientPaymentType'] }}</td>
+                        <td>{{ row['totalToPay'] }}</td>
+                        <td>{{ row['amountLeftToPay'] }}</td>
+
+                    </tr>
+                {% endfor %}
+
+</tbody>
+
+                </table>
+              </div>
+<!--**************************************************************-->
+       <div id="functions">
+                    <label for="operationType" class= "label-color ">Select Operation Type:</label>
+                      <select id="operationType" name="operationType" onchange="toggleFields()" class="round-dropdown">
+                          <option value="Select" selected disabled>Select</option>
+                          <option value="insert">Insert</option>
+                        <option value="delete">Delete</option>
+                        <option value="update">Update</option>
+                        <option value="clear">Clear All</option>
+                          <option value="debt">Patient debts</option>
+
+
+                      </select>
+            <div class="Insert">
+                   <div id="insertStaff" >
+                <form action="/add_patientPayment" method="post" >
+                     <div class="input-group_first_row">
+                         <label for="PatientID" >PatientID: </label>
+                  <input type="text" id="PatientID" name="PatientID" pattern="[0-9\s]+" title="Please enter only digits." required >
+
+                         <label for="collectStaffID" >staffID: </label>
+                  <input type="text" id="collectStaffID" name="collectStaffID" pattern="[0-9\s]+" title="Please enter only digits." required >
+
+                  <label for="patientPaymentDate" >Date: </label>
+                  <input type="text" id="patientPaymentDate" name="patientPaymentDate" pattern="\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[1-2][0-9]|3[0-1])" title="Please enter a date in the format YYYY-MM-DD"
+ required >
+
+                  <label for="amount" style="padding-left: 5px"> Amount:</label>
+                  <input type="text" id="amount" name="amount" required  pattern="[0-9\s]+" title="Please enter only digits.">
+                    </div>
+                        <div class="input-group_second_row">
+
+                  <label for="patientPaymentType"> Type:</label>
+                  <input type="text" id="patientPaymentType" name="patientPaymentType" required pattern="[A-Za-z\s]+" title="Please enter only letters and spaces." >
+
+                  <label for="totalToPay" style="padding-left: 5px"> totalToPay:</label>
+                  <input type="text" id="totalToPay" name="totalToPay" required  pattern="[0-9\s]+" title="Please enter only digits.">
+<!--</div>-->
+<!--                                            <div class="input-group_Third_row">-->
+
+                  <button type="submit" style="padding-left: 20px">
+                  <img src="../static/images/add-user.png" alt="Insert Patient">
+                        <span style="font-size: 12px; color: #92725d;"><p>Add</p></span>
+                 </button>
+                            </div>
+              </form>
+  </div>
+                        </div>
+<!--**************************************************************-->
+  <div class="Delete">
+                   <div id="deleteFields" >
+                       <form action="/delete_patientPayment" method="post">
+        <label for="patientPaymentNumber">Payment Number:</label>
+        <input type="text" id="patientPaymentNumber" name="patientPaymentNumber" required  pattern="[0-9\s]+" title="Please enter only digits."
+ />
+        <button type="submit">
+                  <img src="../static/images/remove-user.png" alt="delete PaymentNumber">
+                        <span style="font-size: 12px; color: #92725d;"><p>Delete</p></span>
+                 </button>
+      </form>
+                       </div>
+                    </div>
+<!--**************************************************************-->
+           <div class="Update">
+                   <div id="updateFields" >
+                      <form action="/update_patientPayment" method="post" >
+                          <div class="input-group_first_row_update">
+        <label for="patientPaymentNumber">Payment Number:</label>
+        <input
+          type="text"
+          id="patientPaymentNumber"
+          name="patientPaymentNumber"
+          value="{{ patientPayment_data['patientPaymentNumber'] }}"
+           pattern="[0-9\s]+" title="Please enter only digits."
+          required
+        />
+        <label for="PatientID">PatientID:</label>
+        <input
+          type="text"
+          id="PatientID"
+          name="PatientID"
+          value="{{ patientPayment_data['PatientID'] }}"
+           pattern="[0-9\s]+" title="Please enter only digits."
+
+        />
+<label for="collectStaffID">Staff:</label>
+        <input
+          type="text"
+          id="collectStaffID"
+          name="collectStaffID"
+          value="{{ patientPayment_data['collectStaffID'] }}"
+           pattern="[0-9\s]+" title="Please enter only digits."
+        />
+
+         <label for="patientPaymentDate" style="padding-left: 8px">Date:</label>
+        <input
+          type="text"
+          id="patientPaymentDate"
+          name="patientPaymentDate"
+          value="{{ patientPayment_data['patientPaymentDate'] }}"
+          pattern="\d{4}-(0?[1-9]|1[0-2])-(0?[1-9]|[1-2][0-9]|3[0-1])" title="Please enter a date in the format YYYY-MM-DD"
+
+        /></div>
+                          <div class="input-group_second_row_update">
+        <label for="amount" style="padding-left: 8px">Amount:</label>
+             <input
+          type="text"
+          id="amount"
+          name="amount"
+          value="{{ patientPayment_data['amount'] }}"
+          pattern="[0-9\s]+" title="Please enter only digits."
+        />
+
+        <label for="patientPaymentType">Type:</label>
+        <input
+          type="text"
+          id="patientPaymentType"
+          name="patientPaymentType"
+          value="{{ patientPayment_data['patientPaymentType'] }}"
+          pattern="[A-Za-z\s]+" title="Please enter only letters and spaces."
+
+        />
+
+
+        <label for="totalToPay">total:</label>
+        <input
+          type="text"
+          id="totalToPay"
+          name="totalToPay"
+          value="{{ patientPayment_data['totalToPay'] }}"
+           pattern="[0-9\s]+" title="Please enter only digits."
+
+        />
+<button type="submit">
+   <img src="../static/images/renew.png" alt="Update Patient">
+   <span style="font-size: 12px; color: #92725d;"><p>Update</p></span>
+</button>
+    </div>
+</div>
+      </form>
+    </div>
+
+  </div>
+    <!--*********************************************************************-->
+<div class="clear">
+      <div id="clear">
+        <form action="{{ url_for('clear_all_patientPayment') }}"  method="post">
+          <button type="submit">
+            <img src="../static/images/eraser.png" alt="Clear All" />
+            <span style="font-size: 12px; color: #92725d"><p>Clear All</p></span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+<!--**************************************************************-->
+    <div class="debt">
+      <div id="debt">
+          <div class="table">
+            <table class="content-table ">
+                  <thead>
+                     <tr>
+                      <th>PatientID</th>
+                      <th>patientName</th>
+                      <th>Date</th>
+                      <th>totalToPay</th>
+                      <th>amountLeftToPay</th>
+
+                    </tr>
+
+                  </thead>
+                  <tbody>
+                    {% for row in debt_patients %}
+                    <tr>
+                        <td>{{ row['patientID'] }}</td>
+                        <td>{{ row['patientName'] }}</td>
+                        <td>{{ row['patientPaymentDate'] }}</td>
+                        <td>{{ row['totalToPay'] }}</td>
+                        <td>{{ row['amountLeftToPay'] }}</td>
+
+                    </tr>
+                {% endfor %}
+
+</tbody>
+
+                </table>
+
+    </div>
+        </div>
+<!--        -->
+        </div>
+        </div>
+<!--**************************************************************-->
+
+       <script>
+function refreshTable() {
+        fetch('/get_all_patientPayment')  // Replace with the endpoint that fetches all patients
+            .then(response => response.json())
+            .then(data => updateTable(data));
+    }
+     function searchPatients() {
+        var searchTerm = document.getElementById("search").value;
+        var searchType = document.getElementById("searchType").value;
+
+
+        fetch(`/search_patientPayment_${searchType}?search=${searchTerm}`)
+    .then(response => response.json())
+    .then(data => updateTable(data))
+    .catch(error => console.error('Error during search:', error));
+
+    }
+    function toggleSearchFields(){
+
+                if (searchType === "Select") {
+      document.getElementById("patientPaymentNumber").style.display = "none";
+      document.getElementById("PatientID").style.display = "none"; // Hide
+      document.getElementById("collectStaffID").style.display = "none"; // Hide
+        document.getElementById("patientPaymentDate").style.display = "none";
+      document.getElementById("amount").style.display = "none"; // Hide
+      document.getElementById("patientPaymentType").style.display = "none"; // Hide
+      document.getElementById("totalToPay").style.display = "none"; // Hide
+
+  }else if (searchType === "patientPaymentNumber") {
+  document.getElementById("patientPaymentNumber").style.display = "block";
+  document.getElementById("PatientID").style.display = "none"; // Hide
+  document.getElementById("collectStaffID").style.display = "none"; // Hide
+    document.getElementById("patientPaymentDate").style.display = "none";
+      document.getElementById("amount").style.display = "none"; // Hide
+      document.getElementById("patientPaymentType").style.display = "none"; // Hide
+            document.getElementById("totalToPay").style.display = "none"; // Hide
+
+}else if (searchType === "PatientID") {
+        document.getElementById("patientPaymentNumber").style.display = "none";
+  document.getElementById("PatientID").style.display = "block"; // Hide
+  document.getElementById("collectStaffID").style.display = "none"; // Hide
+    document.getElementById("patientPaymentDate").style.display = "none";
+      document.getElementById("amount").style.display = "none"; // Hide
+      document.getElementById("patientPaymentType").style.display = "none"; // Hide
+          document.getElementById("totalToPay").style.display = "none"; // Hide
+
+                }
+    else if (searchType === "collectStaffID") {
+        document.getElementById("patientPaymentNumber").style.display = "none";
+  document.getElementById("PatientID").style.display = "none"; // Hide
+  document.getElementById("collectStaffID").style.display = "block"; // Hide
+    document.getElementById("patientPaymentDate").style.display = "none";
+      document.getElementById("amount").style.display = "none"; // Hide
+      document.getElementById("patientPaymentType").style.display = "none"; // Hide
+          document.getElementById("totalToPay").style.display = "none"; // Hide
+
+    }else if (searchType === "patientPaymentDate") {
+        document.getElementById("patientPaymentNumber").style.display = "none";
+  document.getElementById("PatientID").style.display = "none"; // Hide
+  document.getElementById("collectStaffID").style.display = "none"; // Hide
+    document.getElementById("patientPaymentDate").style.display = "block";
+      document.getElementById("amount").style.display = "none"; // Hide
+      document.getElementById("patientPaymentType").style.display = "none"; // Hide
+          document.getElementById("totalToPay").style.display = "none"; // Hide
+
+    }else if (searchType === "amount") {
+        document.getElementById("patientPaymentNumber").style.display = "none";
+  document.getElementById("PatientID").style.display = "none"; // Hide
+  document.getElementById("collectStaffID").style.display = "none"; // Hide
+    document.getElementById("patientPaymentDate").style.display = "none";
+      document.getElementById("amount").style.display = "block"; // Hide
+      document.getElementById("patientPaymentType").style.display = "none"; // Hide
+          document.getElementById("totalToPay").style.display = "none"; // Hide
+
+    }else if (searchType === "patientPaymentType") {
+        document.getElementById("patientPaymentNumber").style.display = "none";
+  document.getElementById("PatientID").style.display = "none"; // Hide
+  document.getElementById("collectStaffID").style.display = "none"; // Hide
+    document.getElementById("patientPaymentDate").style.display = "none";
+      document.getElementById("amount").style.display = "none"; // Hide
+      document.getElementById("patientPaymentType").style.display = "block"; // Hide
+       document.getElementById("totalToPay").style.display = "none"; // Hide
+    }
+    if (searchType === "totalToPay") {
+      document.getElementById("patientPaymentNumber").style.display = "none";
+      document.getElementById("PatientID").style.display = "none"; // Hide
+      document.getElementById("collectStaffID").style.display = "none"; // Hide
+        document.getElementById("patientPaymentDate").style.display = "none";
+      document.getElementById("amount").style.display = "none"; // Hide
+      document.getElementById("patientPaymentType").style.display = "none"; // Hide
+      document.getElementById("totalToPay").style.display = "block"; // Hide
+  }
+                }
+  function updateTable(data) {
+        var tableBody = document.querySelector('.content-table tbody');
+
+        // Clear existing table rows
+        tableBody.innerHTML = "";
+
+        // Check if data is not undefined and has elements
+        if (data && data.length > 0) {
+            // Populate the table with search results
+            data.forEach(function (row) {
+                var newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${row.patientPaymentNumber}</td>
+                    <td>${row.PatientID}</td>
+                    <td>${row.collectStaffID}</td>
+                    <td>${row.patientPaymentDate}</td>
+                    <td>${row.amount}</td>
+                    <td>${row.patientPaymentType}</td>
+                    <td>${row.totalToPay}</td>
+                    <td>${row.amountLeftToPay}</td>
+
+                `;
+                tableBody.appendChild(newRow);
+            });
+        } else {
+            // Display a message if no results are found
+            var newRow = document.createElement('tr');
+            newRow.innerHTML = "<td colspan='8'>No matching results found</td>";
+            tableBody.appendChild(newRow);
+        }
+    }
+ <!--*********************************************************************-->
+
+           window.onload = function () {
+        // refreshTable();
+
+    toggleFields();
+  };
+         function toggleFields() {
+        var operationType = document.getElementById("operationType").value;
+
+        // Show/hide fields based on selection
+        if (operationType === "Select") {
+          document.getElementById("insertStaff").style.display = "none";
+          document.getElementById("deleteFields").style.display = "none"; // Hide deleteFields if needed
+          document.getElementById("updateFields").style.display = "none"; // Hide updateFields if needed
+          document.getElementById("clear").style.display = "none";
+          document.getElementById("debt").style.display = "none";
+
+        } else if (operationType === "insert") {
+          document.getElementById("insertStaff").style.display = "block";
+          document.getElementById("deleteFields").style.display = "none"; // Hide deleteFields if needed
+          document.getElementById("updateFields").style.display = "none"; // Hide updateFields if needed
+          document.getElementById("clear").style.display = "none";
+          document.getElementById("debt").style.display = "none";
+        } else if (operationType === "delete") {
+          document.getElementById("insertStaff").style.display = "none";
+          document.getElementById("deleteFields").style.display = "block";
+          document.getElementById("updateFields").style.display = "none";
+          document.getElementById("clear").style.display = "none";
+          document.getElementById("debt").style.display = "none";
+
+        } else if (operationType === "update") {
+          document.getElementById("insertStaff").style.display = "none";
+          document.getElementById("deleteFields").style.display = "none";
+          document.getElementById("updateFields").style.display = "block";
+          document.getElementById("clear").style.display = "none";
+          document.getElementById("debt").style.display = "none";
+        } else if (operationType === "clear") {
+          document.getElementById("insertStaff").style.display = "none";
+          document.getElementById("deleteFields").style.display = "none";
+          document.getElementById("updateFields").style.display = "none";
+          document.getElementById("clear").style.display = "block";
+          document.getElementById("debt").style.display = "none";
+        } else if (operationType === "debt") {
+          document.getElementById("insertStaff").style.display = "none";
+          document.getElementById("deleteFields").style.display = "none";
+          document.getElementById("updateFields").style.display = "none";
+          document.getElementById("clear").style.display = "none";
+          document.getElementById("debt").style.display = "block";
+        }
+          }
+        </script>
+<!--*********************************************************************-->
+<!--*********************************************************************-->
+
+
+    <div class="side-nav">
+      <ul>
+        <a href="{{ url_for('homepage') }}">
+          <li>
+            <img src="../static/images/home_.png" />
+            <p>Home</p>
+          </li>
+        </a>
+        <a href="{{ url_for('staff') }}">
+        <li>
+          <img src="../static/images/medical-team.png" />
+          <p>Staff</p>
+        </li>
+        </a>
+<!--**************************************************************-->
+        <a href="{{ url_for('patient') }}">
+        <li>
+          <img src="../static/images/heartbeat.png" />
+          <p>Patients</p>
+        </li>
+        </a>
+<!--**************************************************************-->
+        <a href="{{ url_for('Appointment') }}">
+        <li>
+          <img src="../static/images/appointment.png" />
+          <p>Appointment</p>
+        </li>
+        </a>
+ <!--**************************************************************-->
+        <!--**************************************************************-->
+          <a href="{{ url_for('treatmentPlan') }}">
+        <li>
+          <img src="../static/images/dentist-tools.png" />
+          <p>Treatment plan</p>
+        </li>
+        </a>
+        <!--**************************************************************-->
+          <a href="{{ url_for('laboratory') }}">
+
+          <li>
+            <img src="../static/images/chemical-analysis.png" />
+            <p>Laboratory</p>
+          </li>
+        </a>
+          <!--**************************************************************-->
+        <a href="{{ url_for('clinicExpenses') }}">
+        <li>
+          <img src="../static/images/accounting.png" />
+          <p>Clinic Expenses</p>
+        </li>
+          </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('equipment') }}">
+        <li>
+          <img src="../static/images/dentist-chair.png" />
+          <p>Equipment</p>
+        </li>
+          </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('supplier') }}">
+        <li>
+          <img src="../static/images/delivery-courier.png" />
+          <p>Supplier</p>
+        </li>
+          </a>
+          <a href="{{ url_for('Queries') }}">
+          <li>
+            <img src="../static/images/report.png" />
+            <p>Reports</p>
+          </li>
+        </a>
+      </ul>
+      <!--**************************************************************-->
+      <ul>
+       <a href="{{ url_for('index') }}">
+          <li>
+            <img src="../static/images/exit.png" />
+            <p>Logout</p>
+          </li>
+        </a>
+        </ul>
+    </div>
+  </body>
+</html>

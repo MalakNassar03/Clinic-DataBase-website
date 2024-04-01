@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aisha Nassar dental clinic</title>
+    <link rel="icon" href="../static/images/report.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='Queries.css') }}"
+    />
+    <link rel="stylesheet" href="../static/Queries.css" />
+  </head>
+
+  <body>
+    <div class="header">
+      <img src="../static/images/appointment.png" />
+      <p>Patient Appointments</p>
+      <div class="search-container">
+        <form method="POST" action="{{ url_for('get_appointments_query') }}">
+          <label for="patient_id">Enter Patient ID: </label>
+          <input type="text" name="patient_id" required />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
+      <div class="table">
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Appointment Number</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in appointment_data %}
+            <tr>
+              <td>{{ row['appointmentNumber'] }}</td>
+              <td>{{ row['appointmentDate'] }}</td>
+              <td>{{ row['appointmentTime'] }}</td>
+              <td>{{ row['appointmentType'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <img src="../static/images/accounting.png" />
+        <p>Clinic Expenses</p>
+        <form method="POST" action="{{ url_for('get_clinic_expenses_query') }}">
+          <button type="upcoming">Get Clinic Expenses</button>
+        </form>
+
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Clinic Payment Number</th>
+              <th>Expenses</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in clinic_expenses_data %}
+            <tr>
+              <td>{{ row['clinicPaymentNumber'] }}</td>
+              <td>{{ row['expenses'] }}</td>
+              <td>{{ row['balance'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <img src="../static/images/medical-team.png" />
+        <p>Highest Paid Staff</p>
+        <form method="POST" action="{{ url_for('highest_paid_query') }}">
+          <button type="upcoming">Get Top 3 Highest Paid Staff</button>
+        </form>
+
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Staff ID</th>
+              <th>Staff Name</th>
+              <th>Job Description</th>
+              <th>Salary</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in highest_paid %}
+            <tr>
+              <td>{{ row['staffID'] }}</td>
+              <td>{{ row['staffName'] }}</td>
+              <td>{{ row['jobDescription'] }}</td>
+              <td>{{ row['salary'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <div class="count-container">
+          <div class="staff-count">
+            <img
+              src="../static/images/medical-team.png"
+              alt="Staff Count Image"
+            />
+            {% if session['staff_count'] is not none %}
+            <p>Total Number of Staff: {{ session['staff_count'] }}</p>
+            {% else %}
+            <p>No staff data available.</p>
+            {% endif %}
+          </div>
+
+          <div class="patient-count">
+            <img
+              src="../static/images/heartbeat.png"
+              alt="Patient Count Image"
+            />
+            {% if session['patient_count'] is not none %}
+            <p>Total Number of Patients: {{ session['patient_count'] }}</p>
+            {% else %}
+            <p>No patient data available.</p>
+            {% endif %}
+          </div>
+          <div class="appointment-count">
+            <img
+              src="../static/images/appointment.png"
+              alt="Patient Count Image"
+            />
+            {% if session['appointment_count'] is not none %}
+            <p>
+              Total Number of Appointments: {{ session['appointment_count'] }}
+            </p>
+            {% else %}
+            <p>No appointment data available.</p>
+            {% endif %}
+          </div>
+          <div class="patient-payment-count">
+            <img
+              src="../static/images/payment-method.png"
+              alt="Patient Count Image"
+            />
+            {% if session['patient_payment_count'] is not none %}
+            <p>
+              Total Number of Patient Payments: {{
+              session['patient_payment_count'] }}
+            </p>
+            {% else %}
+            <p>No payment data available.</p>
+            {% endif %}
+          </div>
+          <div class="treatment-plan-count">
+            <img
+              src="../static/images/dentist-tools.png"
+              alt="Patient Count Image"
+            />
+            {% if session['treatment_plan_count'] is not none %}
+            <p>
+              Total Number of Treatment Plans: {{
+              session['treatment_plan_count'] }}
+            </p>
+            {% else %}
+            <p>No plans data available.</p>
+            {% endif %}
+          </div>
+          <div class="laboratory-count">
+            <img
+              src="../static/images/chemical-analysis.png"
+              alt="Patient Count Image"
+            />
+            {% if session['laboratory_count'] is not none %}
+            <p>
+              Total Number of Laboratories: {{ session['laboratory_count'] }}
+            </p>
+            {% else %}
+            <p>No laboratory data available.</p>
+            {% endif %}
+          </div>
+          <div class="supplier-count">
+            <img
+              src="../static/images/delivery-courier.png"
+              alt="Patient Count Image"
+            />
+            {% if session['supplier_count'] is not none %}
+            <p>Total Number of Suppliers: {{ session['supplier_count'] }}</p>
+            {% else %}
+            <p>No supplier data available.</p>
+            {% endif %}
+          </div>
+          <div class="equipment-count">
+            <img
+              src="../static/images/dentist-chair.png"
+              alt="Patient Count Image"
+            />
+            {% if session['equipment_count'] is not none %}
+            <p>Total Number of Equipment: {{ session['equipment_count'] }}</p>
+            {% else %}
+            <p>No equipment data available.</p>
+            {% endif %}
+          </div>
+          <div class="clinic-expenses-count">
+            <img
+              src="../static/images/accounting.png"
+              alt="Patient Count Image"
+            />
+            {% if session['clinic_expenses_count'] is not none %}
+            <p>
+              Total Number of Clinic Expenses: {{
+              session['clinic_expenses_count'] }}
+            </p>
+            {% else %}
+            <p>No expenses data available.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--**************************************************************-->
+    <div class="side-nav">
+      <ul>
+        <a href="{{ url_for('homepage') }}">
+          <li>
+            <img src="../static/images/home_.png" />
+            <p>Home</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('staff') }}">
+          <li>
+            <img src="../static/images/medical-team.png" />
+            <p>Staff</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('patient') }}">
+          <li>
+            <img src="../static/images/heartbeat.png" />
+            <p>Patients</p>
+          </li>
+        </a>
+        <a href="{{ url_for('Appointment') }}">
+          <li>
+            <img src="../static/images/appointment.png" />
+            <p>Appointment</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+
+        <a href="{{ url_for('treatmentPlan') }}">
+          <li>
+            <img src="../static/images/dentist-tools.png" />
+            <p>Treatment plan</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('laboratory') }}">
+          <li>
+            <img src="../static/images/chemical-analysis.png" />
+            <p>Laboratory</p>
+          </li>
+        </a>
+        <a href="{{ url_for('patientPayment') }}">
+          <li>
+            <img src="../static/images/payment-method.png" />
+            <p>Patient Payment</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('clinicExpenses') }}">
+          <li>
+            <img src="../static/images/accounting.png" />
+            <p>Clinic Expenses</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('equipment') }}">
+          <li>
+            <img src="../static/images/dentist-chair.png" />
+            <p>Equipment</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+        <a href="{{ url_for('supplier') }}">
+          <li>
+            <img src="../static/images/delivery-courier.png" />
+            <p>Supplier</p>
+          </li>
+        </a>
+      </ul>
+
+      <ul>
+        <!--**************************************************************-->
+
+        <a href="{{ url_for('index') }}">
+          <li>
+            <img src="../static/images/exit.png" />
+            <p>Logout</p>
+          </li>
+        </a>
+        <!--**************************************************************-->
+      </ul>
+    </div>
+  </body>
+</html>
